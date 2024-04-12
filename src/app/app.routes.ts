@@ -8,17 +8,23 @@ export class AdminGuard {
     private storageService: StorageService,
     private router: Router
 ) {}
-  canActivate() {
+ async canActivate() {
     if (this.storageService.getItem('token')) {
       return true;
     } else {
-        this.router.navigate(['auth']);
+        //this.router.navigate(['auth']);
       return false;
     }
+    
   }
 }
 
 export const routes: Routes = [
+  {
+    path: 'auth',
+    loadComponent: () =>
+      import('./auth/auth.component').then((c) => c.AuthComponent),
+  },
   {
     path: '',
     loadComponent: () =>
@@ -26,20 +32,21 @@ export const routes: Routes = [
     canActivate: mapToCanActivate([AdminGuard]),
     children: [
       {
-        path: '',
+        path: 'Inicio',
         loadComponent: () =>
           import('./sistema/views/home/home.component').then((c) => c.HomeComponent),
       },
       {
-        path: 'Users',
+        path: 'Usuarios',
         loadComponent: () =>
           import('./sistema/views/users/users.component').then((c) => c.UsersComponent),
       },
     ],
   },
   {
-    path: 'auth',
+    path:'**',
     loadComponent: () =>
       import('./auth/auth.component').then((c) => c.AuthComponent),
-  },
+  }
+ 
 ];

@@ -5,7 +5,7 @@ import { AuthService } from './auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { SessionService } from '../sistema/session.service';
 import { Router } from '@angular/router';
-import { provideNgxMask } from 'ngx-mask';
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { StorageService } from '../sistema/storage.service';
 
 @Component({
@@ -13,7 +13,13 @@ import { StorageService } from '../sistema/storage.service';
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.css',
   standalone: true,
-  imports: [CommonModule,FormsModule, ReactiveFormsModule, ],
+  imports: [
+    CommonModule,
+    FormsModule, 
+    ReactiveFormsModule, 
+    NgxMaskDirective, 
+    NgxMaskPipe
+],
   providers: [
     AuthService, 
     SessionService, 
@@ -62,8 +68,8 @@ export class AuthComponent implements OnInit {
             next: (data:any) => {
                 this.sessionService.setSession(data.user, data.access_token);
                 this.storageService.setItem('user', JSON.stringify(data.user));
-                this.storageService.setItem('token', JSON.stringify(data.token));
-                this.router.navigate(['']);
+                this.storageService.setItem('token', data.access_token);
+                this.router.navigate(['Inicio']);
                 
             },
             error: (error) => {

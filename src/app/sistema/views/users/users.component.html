@@ -1,0 +1,59 @@
+<div class="content-wrapper">
+  <app-title titulo="Usuários" />
+
+  <!--INICIO SECTION content-->
+  <section class="content">
+    <!-- INICIO CARD-->
+    <div class="card">
+      <!-- INICIO CARD HEADER-->
+      <div class="card-header border-0">
+        <h3 class="card-title">
+          <button type="button" class="btn btn-block btn-outline-primary"><i class="fa fa-plus"></i></button>
+        </h3>
+        <div class="card-tools">
+          <a href="#" class="btn btn-tool btn-sm">
+            <i class="fa fa-download"></i>
+          </a>
+          <a href="#" class="btn btn-tool btn-sm">
+            <i class="fa fa-bars"></i>
+          </a>
+        </div>
+      </div>
+       <!-- FIM CARD HEADER-->
+        <!-- INICIO CARD BODY-->
+      <div class="card-body table-responsive p-0">
+         <!-- INICIO TABLE-->
+        <table class="table table-striped table-hover table-valign-middle">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Nome</th>
+              <th>CPF</th>
+              <th>Telefone</th>
+              <th>E-mail</th>
+              <th>Opções</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for(user of users | async; track user){
+              <tr>
+                <td>{{user.id}}</td>
+                <td>{{user.nome}}</td>
+                <td>{{user.cpf}}</td>
+                <td>{{user.telefone}}</td>
+                <td>{{user.email}}</td>
+                <td></td>
+              </tr>
+            }
+            
+            
+          </tbody>
+        </table>
+        <!-- FIM TABLE-->
+      </div>
+      <!-- FIM CARD BODY-->
+    </div>
+    <!--FIM CARD-->
+  </section>
+  <!--FIM SECTION content-->
+</div>

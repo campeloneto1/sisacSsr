@@ -4,13 +4,11 @@ import { StorageService } from "./storage.service";
 @Injectable({
     providedIn: 'root'
 })
-export class SessionService implements OnInit{
-    private token!: string;
+export class SessionService {
+    private token!: any;
     private user!: any;
 
-    constructor(private storageService: StorageService){}
-    
-    ngOnInit(): void {
+    constructor(private storageService: StorageService){
         if(!this.user){
             this.user = JSON.parse(this.storageService.getItem('user')!);
         }

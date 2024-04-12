@@ -3,13 +3,13 @@ import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { StorageService } from '../sistema/storage.service';
 import { catchError, throwError } from 'rxjs';
+import { SessionService } from '../sistema/session.service';
 
 export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
   const router = inject(Router);
-  const storageService = inject(StorageService);
+  const sessionService = inject(SessionService);
   
-  const authToken = storageService.getItem('token');
-
+  const authToken = sessionService.getToken();
   // Clone the request and add the authorization header
   const authReq = req.clone({
     setHeaders: {

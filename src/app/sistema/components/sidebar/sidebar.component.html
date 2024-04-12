@@ -1,5 +1,5 @@
 <aside class="main-sidebar sidebar-dark-orange elevation-4">
-    <a  class="brand-link">
+    <a [routerLink]="['']" class="brand-link">
       <img
         src="assets/casamil.png"
         alt="Casa Militar"
@@ -18,30 +18,24 @@
         >
           <li class="nav-item">
             <a
-            
+            [routerLink]="['']"
+            routerLinkActive="active"
               class="nav-link"
             >
               <i class="nav-icon fa fa-home"></i>
               <p>Início</p>
             </a>
           </li>
-        
-          
-  
-          
-          
-          
-          
-         
-        
-          
-  
-          
-         
-         
-          
-          
-          
+          <li class="nav-item">
+            <a
+            [routerLink]="['Users']"
+            routerLinkActive="active"
+              class="nav-link"
+            >
+              <i class="nav-icon fa fa-users"></i>
+              <p>Usuários</p>
+            </a>
+          </li>
         </ul>
       </nav>
     </div>

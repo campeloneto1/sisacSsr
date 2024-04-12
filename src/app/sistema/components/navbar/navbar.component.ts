@@ -1,33 +1,41 @@
 import { CommonModule } from "@angular/common";
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { SessionService } from "../../session.service";
+import { StorageService } from "../../storage.service";
+import { Router } from "@angular/router";
 
 @Component({
     selector: 'app-navbar',
     templateUrl: './navbar.component.html',
     styleUrl: './navbar.component.css',
     standalone: true,
-    imports: [CommonModule]
+    imports: [CommonModule,],
+    providers: [Router]
 })
 
-export class NavbarComponent{
+export class NavbarComponent implements OnInit{
 
     user!: any;
 
     protected form!: FormGroup;
 
-    constructor(private sessionService: SessionService,
-        ){
-
-    }
+    constructor(
+        private sessionService: SessionService,
+        private storageService: StorageService,
+        private router: Router,
+    ){}
 
     ngOnInit(): void {
-        //this.user = this.sessionService.retornaUser();
+        this.user = this.sessionService.getUser();
+        if(!this.user){
+            this.user = JSON.parse(this.storageService.getItem('user')!);
+        }
     }
 
     logout(){
         this.sessionService.logout();
+        this.router.navigate(['auth']);
     }
 
     alterarSenha(){

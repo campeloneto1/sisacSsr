@@ -11,11 +11,17 @@ const URL = environment.url;
 
 export class AuthService{
 
-    constructor(private http: HttpClient){
+    constructor(
+        private http: HttpClient,
+    ){
         
     }
 
     entrar(data: Auth){
         return this.http.post(`${URL}/auth/login`, data);
+    }
+
+    profile(data: Auth){
+        return this.http.post(`${URL}/auth/profile`, data);
     }
 }

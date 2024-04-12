@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { SessionService } from '../sistema/session.service';
 import { Router } from '@angular/router';
 import { provideNgxMask } from 'ngx-mask';
+import { StorageService } from '../sistema/storage.service';
 
 @Component({
   selector: 'app-auth',
@@ -13,7 +14,13 @@ import { provideNgxMask } from 'ngx-mask';
   styleUrl: './auth.component.css',
   standalone: true,
   imports: [CommonModule,FormsModule, ReactiveFormsModule, ],
-  providers: [AuthService, SessionService, Router,  provideNgxMask(),]
+  providers: [
+    AuthService, 
+    SessionService, 
+    StorageService,
+    Router, 
+    provideNgxMask(),
+]
 })
 export class AuthComponent implements OnInit {
 
@@ -23,6 +30,7 @@ export class AuthComponent implements OnInit {
         private formBuilder: FormBuilder,
         private authService: AuthService,
         private sessionService: SessionService,
+        private storageService: StorageService,
         private router: Router,
         private toastr: ToastrService,
     ){}
@@ -53,6 +61,8 @@ export class AuthComponent implements OnInit {
         this.authService.entrar(this.form.value).subscribe({
             next: (data:any) => {
                 this.sessionService.setSession(data.user, data.access_token);
+                this.storageService.setItem('user', JSON.stringify(data.user));
+                this.storageService.setItem('token', JSON.stringify(data.token));
                 this.router.navigate(['']);
                 
             },
